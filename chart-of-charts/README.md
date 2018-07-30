@@ -54,4 +54,4 @@ myrelease-simplepod-app3  0/1    ContainerCreating  0         0s
 
 Please see [codefresh.yml](https://github.com/codefresh-io/helm-chart-examples/blob/master/chart-of-charts/codefresh.yml) for an example pipeline to deploy this chart.
 
-You are also required to set the `KUBE_CONTEXT` and `RELEASE_NAME` variables, either in the YAML, or via Codefresh UI.
+You are also required to set the `KUBE_CONTEXT` variable, either in the YAML, or via Codefresh UI, set to the name of one of your attached clusters.
