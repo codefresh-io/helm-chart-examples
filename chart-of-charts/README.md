@@ -14,6 +14,8 @@ simplepod:
     message: "hello from app1"
 ```
 
+Note: The `simplepod.parent` key above is used in order to differentiate the name of the pod betwen apps. This is due to the inability for Helm to determine the name of a parent chart at time of install. Please see https://github.com/helm/helm/issues/2506 for more info.
+
 ## Gathering Dependencies
 
 In order to vendor the `common/simplepod` chart into each of the subcharts in `charts/`, run the following script:
