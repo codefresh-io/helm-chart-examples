@@ -1,2 +1,3 @@
-# chart-of-charts-example
-Example of ways to use Helm chart dependencies
+# helm-chart-examples
+
+A collection of different ways to do Helm charts.
