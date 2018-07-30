@@ -1,0 +1,3 @@
+simplepod:
+    parent: "app2"
+    message: "hola from app2"
