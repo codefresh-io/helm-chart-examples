@@ -42,9 +42,11 @@ steps:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     environment:
-      - CF_CTX_CF_HELM_DEFAULT_URL=""
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
       - CHART_REF=.
       - VALUESFILE_overrides=override-values.yaml
       - RELEASE_NAME=development-branch-example
+    commands:
+      - unset CF_CTX_CF_HELM_DEFAULT_URL
+      - /opt/bin/release_chart
