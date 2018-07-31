@@ -1,0 +1,4 @@
+dependencies:
+- name: simplepod
+  version: '1.0.0'
+  repository: '@codefresh'

@@ -1,0 +1,3 @@
+app3:
+    simplepod:
+        message: "hallo from app3"

@@ -1,0 +1,10 @@
+dependencies:
+- name: app1
+  version: '1.0.0'
+  repository: '@codefresh'
+- name: app2
+  version: '1.0.0'
+  repository: '@codefresh'
+- name: app3
+  version: '1.0.0'
+  repository: '@codefresh'

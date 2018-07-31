@@ -1,0 +1,23 @@
+version: '1.0'
+steps:
+
+  release_all:
+    image: codefresh/cfstep-helm:2.9.1
+    working_directory: development-branch/
+    commands:
+      - make helm/release-all
+
+  gather_deps:
+    image: codefresh/cfstep-helm:2.9.1
+    working_directory: development-branch/
+    commands:
+      - apk add --no-cache ruby
+      - make helm/update-reqs
+
+  deploy:
+    image: codefresh/cfstep-helm:2.9.1
+    working_directory: development-branch/
+    environment:
+      - CHART_REF=.
+      - VALUESFILE_overrides=override-values.yaml
+      - RELEASE_NAME=development-branch-example
