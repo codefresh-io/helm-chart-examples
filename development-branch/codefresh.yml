@@ -6,8 +6,11 @@ steps:
     working_directory: development-branch/
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
+      - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
     commands:
       - apk add --no-cache ruby make bash git
+      - helm init --client-only
+      - ACTION=auth source /opt/bin/release_chart
       - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/release-all
 
@@ -16,15 +19,16 @@ steps:
     working_directory: development-branch/
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
+      - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
     commands:
       - apk add --no-cache ruby make bash git
-      - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/update-reqs
 
   deploy:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     environment:
+      - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
       - CHART_REF=.
       - VALUESFILE_overrides=override-values.yaml
       - RELEASE_NAME=development-branch-example
