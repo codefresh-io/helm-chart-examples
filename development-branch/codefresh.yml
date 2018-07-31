@@ -10,7 +10,8 @@ steps:
     commands:
       - apk add --no-cache ruby make bash git
       - helm init --client-only
-      - ACTION=auth source /opt/bin/release_chart
+      - export HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
+      - export HELM_REPO_AUTH_HEADER=x-access-token
       - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/release-all
 
