@@ -7,15 +7,12 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
-      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
-      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
       - rm -rf $HELM_HOME
       - helm init --client-only
       - helm plugin install https://github.com/chartmuseum/helm-push.git
-      - export HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
-      - export HELM_REPO_AUTH_HEADER=x-access-token
+      - export HELM_REPO_ACCESS_TOKEN=$CF_API_KEY HELM_REPO_AUTH_HEADER=x-access-token
       - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/release-all
 
@@ -25,10 +22,9 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
-      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
-      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
+      - export HELM_REPO_ACCESS_TOKEN=$CF_API_KEY HELM_REPO_AUTH_HEADER=x-access-token
       - make helm/update-reqs
 
   gather_deps:
@@ -37,10 +33,9 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
-      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
-      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
+      - export HELM_REPO_ACCESS_TOKEN=$CF_API_KEY HELM_REPO_AUTH_HEADER=x-access-token
       - make helm/gather-deps
 
   deploy:
