@@ -16,7 +16,7 @@ steps:
       - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/release-all
 
-  gather_deps:
+  update_reqs:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     environment:
@@ -26,10 +26,22 @@ steps:
       - apk add --no-cache ruby make bash git
       - make helm/update-reqs
 
+  gather_deps:
+    image: codefresh/cfstep-helm:2.9.1
+    working_directory: development-branch/
+    environment:
+      - GIT_BRANCH=${{CF_BRANCH}}
+      - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
+    commands:
+      - apk add --no-cache ruby make bash git
+      - make helm/gather-deps
+
   deploy:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     environment:
+      - CF_CTX_CF_HELM_DEFAULT_URL=""
+      - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
       - CHART_REF=.
       - VALUESFILE_overrides=override-values.yaml
