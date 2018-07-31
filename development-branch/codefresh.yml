@@ -7,6 +7,8 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
+      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
+      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
       - rm -rf $HELM_HOME
@@ -23,6 +25,8 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
+      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
+      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
       - make helm/update-reqs
@@ -33,6 +37,8 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
+      - HELM_REPO_ACCESS_TOKEN=$CF_API_KEY
+      - HELM_REPO_AUTH_HEADER=x-access-token
     commands:
       - apk add --no-cache ruby make bash git
       - make helm/gather-deps
