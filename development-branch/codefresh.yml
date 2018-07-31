@@ -5,14 +5,14 @@ steps:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     commands:
-      - apk add --no-cache ruby make bash
+      - apk add --no-cache ruby make bash git
       - make helm/release-all
 
   gather_deps:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
     commands:
-      - apk add --no-cache ruby make bash
+      - apk add --no-cache ruby make bash git
       - make helm/update-reqs
 
   deploy:
