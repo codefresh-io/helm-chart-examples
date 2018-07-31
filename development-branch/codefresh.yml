@@ -4,15 +4,21 @@ steps:
   release_all:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
+    environment:
+      - GIT_BRANCH=${{CF_BRANCH}}
     commands:
       - apk add --no-cache ruby make bash git
+      - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/release-all
 
   gather_deps:
     image: codefresh/cfstep-helm:2.9.1
     working_directory: development-branch/
+    environment:
+      - GIT_BRANCH=${{CF_BRANCH}}
     commands:
       - apk add --no-cache ruby make bash git
+      - helm repo add codefresh $CF_CTX_CF_HELM_DEFAULT_URL
       - make helm/update-reqs
 
   deploy:
