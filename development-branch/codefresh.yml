@@ -56,4 +56,5 @@ steps:
     environment:
       - GIT_BRANCH=${{CF_BRANCH}}
       - HELM_HOME=${{CF_VOLUME_PATH}}/.helm
+      - CHART_REF=development-branch
       - VALUESFILE_overrides=override-values.yaml
