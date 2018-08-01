@@ -38,6 +38,15 @@ function release_app3 {
     helm push . --version="${version}${version_suffix}" codefresh
 }
 
+function release_self {
+    local version_suffix="$1"
+    cd $DIR/../
+    $DIR/../scripts/update-reqs.sh
+    $DIR/../scripts/gather-deps.sh
+    local version="$(cat Chart.yaml | grep 'version:' | awk '{print $2}')"
+    helm push . --version="${version}${version_suffix}" codefresh
+}
+
 function main {
     local version_suffix=""
 
@@ -53,6 +62,7 @@ function main {
     release_app1 $version_suffix
     release_app2 $version_suffix
     release_app3 $version_suffix
+    release_self $version_suffix
 }
 
 main "$@"
