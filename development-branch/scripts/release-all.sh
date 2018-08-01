@@ -5,6 +5,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 function release_common_simplepod {
     local version_suffix="$1"
     cd $DIR/../common/simplepod/
+    $DIR/../scripts/update-reqs.sh
+    $DIR/../scripts/gather-deps.sh
     local version="$(cat Chart.yaml | grep 'version:' | awk '{print $2}')"
     helm push . --version="${version}${version_suffix}" codefresh
 }
@@ -12,6 +14,8 @@ function release_common_simplepod {
 function release_app1 {
     local version_suffix="$1"
     cd $DIR/../apps/app1/
+    $DIR/../scripts/update-reqs.sh
+    $DIR/../scripts/gather-deps.sh
     local version="$(cat Chart.yaml | grep 'version:' | awk '{print $2}')"
     helm push . --version="${version}${version_suffix}" codefresh
 }
@@ -19,6 +23,8 @@ function release_app1 {
 function release_app2 {
     local version_suffix="$1"
     cd $DIR/../apps/app2/
+    $DIR/../scripts/update-reqs.sh
+    $DIR/../scripts/gather-deps.sh
     local version="$(cat Chart.yaml | grep 'version:' | awk '{print $2}')"
     helm push . --version="${version}${version_suffix}" codefresh
 }
@@ -26,6 +32,8 @@ function release_app2 {
 function release_app3 {
     local version_suffix="$1"
     cd $DIR/../apps/app3/
+    $DIR/../scripts/update-reqs.sh
+    $DIR/../scripts/gather-deps.sh
     local version="$(cat Chart.yaml | grep 'version:' | awk '{print $2}')"
     helm push . --version="${version}${version_suffix}" codefresh
 }

@@ -25,6 +25,13 @@ function update_dep_version {
 }
 
 function main {
+    [[ ! -f requirements.yaml.bak ]] || mv requirements.yaml.bak requirements.yaml
+
+    if [[ ! -f requirements.yaml ]]; then
+        echo "[update-reqs] No requirements.yaml, nothing to do"
+        exit 0
+    fi
+
     local git_branch="${GIT_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
     if [[ "$git_branch" == "master" ]]; then
         echo "[update-reqs] Git branch is \"master\", nothing to do"
@@ -34,8 +41,6 @@ function main {
     command -v ruby &> /dev/null || ( echo "ruby is (unfortunately) required for the rest of this script." && exit 1 )
 
     echo "[update-reqs] Git branch is \"$git_branch\", searching for dep versions with suffix \"-$git_branch\""
-
-    [[ ! -f requirements.yaml.bak ]] || mv requirements.yaml.bak requirements.yaml
     cp requirements.yaml requirements.yaml.bak
 
     echo "[update-reqs] Updating all helm repos"

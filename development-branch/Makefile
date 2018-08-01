@@ -10,4 +10,4 @@ helm/update-reqs:
 
 .PHONY: helm/gather-deps
 helm/gather-deps:
-	@rm -f requirements.lock && rm -rf charts/ && helm dep up
+	@$(makefile_dir)/scripts/gather-deps.sh
